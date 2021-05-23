@@ -57,8 +57,8 @@ local themes = {
 local themeStyles = {
     DarkTheme = {
         SchemeColor = Color3.fromRGB(64, 64, 64),
-        Background = Color3.fromRGB(85, 85, 91),
-        Header = Color3.fromRGB(0, 0, 0),
+        Background = Color3.fromRGB(184, 150, 110),
+        Header = Color3.fromRGB(184, 150, 80),
         TextColor = Color3.fromRGB(255,255,255),
         ElementColor = Color3.fromRGB(20, 20, 20)
     }
