@@ -126,7 +126,7 @@ local SettingsT = {
 
 }
 
-local Name = "KavoConfig.JSON"
+local Name = "DogeConfig.JSON"
 
 pcall(function()
 
