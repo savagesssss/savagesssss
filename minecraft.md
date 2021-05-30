@@ -1,36 +1,74 @@
-down = false
-velocity = Instance.new("BodyVelocity")
-velocity.maxForce = Vector3.new(100000, 0, 100000)
----vv Use that to change the speed v
-local speed = valewa
-gyro = Instance.new("BodyGyro")
-gyro.maxTorque = Vector3.new(100000, 0, 100000)
+local loPlayer = game.Players.LocalPlayer
+local camera = game:GetService("Workspace").CurrentCamera
+local CurrentCamera = workspace.CurrentCamera
+local worldToViewportPoint = CurrentCamera.worldToViewportPoint
 
-local hum = game.Players.LocalPlayer.Character.Humanoid
+_G.TeamCheck = true
 
-function onButton1Down(mouse)
-down = true
-velocity.Parent = game.Players.LocalPlayer.Character.UpperTorso
-velocity.velocity = (hum.MoveDirection) * speed
-gyro.Parent = game.Players.LocalPlayer.Character.UpperTorso
-while down do
-if not down then break end
-velocity.velocity = (hum.MoveDirection) * speed
-local refpos = gyro.Parent.Position + (gyro.Parent.Position - workspace.CurrentCamera.CoordinateFrame.p).unit * 5
-gyro.cframe = CFrame.new(gyro.Parent.Position, Vector3.new(refpos.x, gyro.Parent.Position.y, refpos.z))
-wait(0.1)
-end
+for i,v in pairs(game.Players:GetChildren()) do
+    local Tracer = Drawing.new("Line")
+    Tracer.Visible = false
+    Tracer.Color = Color3.new(1,1,1)
+    Tracer.Thickness = 1
+    Tracer.Transparency = 1
+
+    function tracer()
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= loPlayer and v.Character.Humanoid.Health > 0 then
+                local Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+                if OnScreen then
+                    Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+                    Tracer.To = Vector2.new(Vector.X, Vector.Y)
+
+                    if _G.TeamCheck and v.TeamColor == loPlayer.TeamColor then
+
+                        Tracer.Visible = false
+                    else
+
+                        Tracer.Visible = true
+                    end
+                else
+                    Tracer.Visible = false
+                end
+            else
+                Tracer.Visible = false
+            end
+        end)
+    end
+    coroutine.wrap(tracer)()
 end
 
-function onButton1Up(mouse)
-velocity.Parent = nil
-gyro.Parent = nil
-down = false
-end
---To Change the key in those 2 lines, replace the "q" with your desired key
-function onSelected(mouse)
-mouse.KeyDown:connect(function(k) if k:lower()=="q"then onButton1Down(mouse)end end)
-mouse.KeyUp:connect(function(k) if k:lower()=="q"then onButton1Up(mouse)end end)
-end
+game.Players.PlayerAdded:Connect(function(v)
+    local Tracer = Drawing.New("Line")
+    Tracer.Visible = false
+    Tracer.Color = Color3.new(1,1,1)
+    Tracer.Thickness = 1
+    Tracer.Transparency = 1
 
-onSelected(game.Players.LocalPlayer:GetMouse())
+    function tracer()
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= loPlayer and v.Character.Humanoid.Health > 0 then
+                local Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+                if OnScreen then
+                    Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+                    Tracer.To = Vector2.new(Vector.X, Vector.Y)
+
+                    if _G.TeamCheck and v.TeamColor == loPlayer.TeamColor then
+
+                        Tracer.Visible = false
+                    else
+
+                        Tracer.Visible = true
+                    end
+                else
+                    Tracer.Visible = false
+                end
+            else
+                Tracer.Visible = false
+            end
+        end)
+    end
+    coroutine.wrap(tracer)()
+end)
