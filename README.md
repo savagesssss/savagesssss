@@ -200,7 +200,6 @@ function Kavo.CreateLib(kavName, themeList)
     local coverup = Instance.new("Frame")
     local title = Instance.new("TextLabel")
     local close = Instance.new("ImageButton")
-    local logo = Instance.new("ImageLabel")
     local MainSide = Instance.new("Frame")
     local sideCorner = Instance.new("UICorner")
     local coverup_2 = Instance.new("Frame")
@@ -281,14 +280,6 @@ function Kavo.CreateLib(kavName, themeList)
     close.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
     end)
-    
-    logo.Name = "logo"
-    logo.Parent = MainHeader
-    logo.BackgroundColor3 = Color3.fromRGB(252, 169, 3)
-    logo.BackgroundTransparency = 1.000
-    logo.Position = UDim2.new(-4.65499878, 0, 0.380000025, 0)
-    logo.Size = UDim2.new(0, 200, 0, 200)
-    logo.Image = "rbxassetid://6882968140" 
 
     MainSide.Name = "MainSide"
     MainSide.Parent = Main
