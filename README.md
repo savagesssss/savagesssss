@@ -245,7 +245,6 @@ function Kavo.CreateLib(kavName, themeList)
     MainHeader.Size = UDim2.new(0, 525, 0, 29)
     headerCover.CornerRadius = UDim.new(0, 1)
     headerCover.Name = "headerCover"
-    headerCover.BackgroundTransparency = 1.000
     headerCover.Parent = MainHeader
 
     coverup.Name = "coverup"
